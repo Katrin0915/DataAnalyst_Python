@@ -1,0 +1,1096 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Stepik's projects.ipynb",
+      "provenance": [],
+      "collapsed_sections": [
+        "YdOrLtDabg8u",
+        "n2X_Wx3-04UV",
+        "dtxh1a-9OQQb"
+      ],
+      "authorship_tag": "ABX9TyPF+Bx2EFpNhd0ScEOy/B+S",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Katrin0915/DataAnalyst_Python/blob/main/Stepik's_projects\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Угадайка чисел\n",
+        "\n",
+        "## Описание проекта: программа генерирует случайное число в диапазоне от 1 до 100 и просит пользователя угадать это число. Если догадка пользователя больше случайного числа, то программа должна вывести сообщение 'Слишком много, попробуйте еще раз'. Если догадка меньше случайного числа, то программа должна вывести сообщение 'Слишком мало, попробуйте еще раз'. Если пользователь угадывает число, то программа должна поздравить его и вывести сообщение 'Вы угадали, поздравляем!'."
+      ],
+      "metadata": {
+        "id": "XzGpNGU-qUJr"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Составляющие проекта:\n",
+        "\n",
+        "#### -Целые числа (тип int);\n",
+        "#### -Переменные;\n",
+        "#### -Ввод / вывод данных (функции input() и print());\n",
+        "#### -Условный оператор (if/elif/else);\n",
+        "#### -Цикл while;\n",
+        "#### -Бесконечный цикл;\n",
+        "#### -Операторы break, continue;\n",
+        "#### -Работа с модулем random для генерации случайных чисел."
+      ],
+      "metadata": {
+        "id": "7na1bFHdqg7a"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from random import *"
+      ],
+      "metadata": {
+        "id": "L3b4dLR3rAvC"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# начало игры\n",
+        "def welcome():\n",
+        "  '''функция запрашивает правую границу диапазона у игрока и возвращает случайное число в этом диапазоне'''\n",
+        "  print('Добро пожаловать в числовую угадайку')\n",
+        "  right = int(input('Введите правую границу диапазона: '))\n",
+        "  guess = randint(1, right)\n",
+        "  return guess"
+      ],
+      "metadata": {
+        "id": "EeMOnj476tHW"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Функция проверки корректности введенных данных\n",
+        "def is_valid(txt):\n",
+        "  '''функция возвращает значение True, если переданный аргумент является целым числом от 1 до 100 и False в противном случае'''\n",
+        "  return txt.isdigit() and 1 <= int(txt) <= 100"
+      ],
+      "metadata": {
+        "id": "Hdmu7fLSrlkP"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# счетчик попыток игрока\n",
+        "counter = 0"
+      ],
+      "metadata": {
+        "id": "BMfoPeBJ0K-9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Основной цикл программы\n",
+        "guess = welcome()\n",
+        "while True:\n",
+        "  answer = input('Введите число от 1 до 100: ')\n",
+        "  counter += 1\n",
+        "  if is_valid(answer) == False:\n",
+        "    print('А может быть все-таки введем целое число от 1 до 100?')\n",
+        "    continue\n",
+        "  else:\n",
+        "    answer = int(answer)\n",
+        "    if answer != guess and answer < guess:\n",
+        "      print('Ваше число меньше загаданного, попробуйте еще разок')\n",
+        "      continue\n",
+        "    elif answer != guess and answer > guess:\n",
+        "      print('Ваше число больше загаданного, попробуйте еще разок')\n",
+        "      continue\n",
+        "    else:\n",
+        "      print('Поздравляем!!! Вы выиграли!')\n",
+        "      print('Количество Ваших попыток: ', counter)\n",
+        "      again = input('Хотите сыграть ещё раз? (Y/N) ')\n",
+        "      if again.upper() == 'Y':\n",
+        "        guess = welcome()\n",
+        "        continue\n",
+        "      elif again.upper() == 'N':\n",
+        "        print('Спасибо, что играли в числовую угадайку. Еще увидимся...')\n",
+        "        break\n",
+        "        "
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Cac76WvCtXZG",
+        "outputId": "4be77f2d-dcbe-4e1d-eca9-638754ba6e90"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Добро пожаловать в числовую угадайку\n",
+            "Введите правую границу диапазона: 100\n",
+            "Введите число от 1 до 100: 50\n",
+            "Ваше число меньше загаданного, попробуйте еще разок\n",
+            "Введите число от 1 до 100: 75\n",
+            "Ваше число меньше загаданного, попробуйте еще разок\n",
+            "Введите число от 1 до 100: 85\n",
+            "Ваше число больше загаданного, попробуйте еще разок\n",
+            "Введите число от 1 до 100: 78\n",
+            "Ваше число больше загаданного, попробуйте еще разок\n",
+            "Введите число от 1 до 100: 76\n",
+            "Ваше число меньше загаданного, попробуйте еще разок\n",
+            "Введите число от 1 до 100: 77\n",
+            "Поздравляем!!! Вы выиграли!\n",
+            "Количество Ваших попыток:  20\n",
+            "Хотите сыграть ещё раз? (Y/N) n\n",
+            "Спасибо, что играли в числовую угадайку. Еще увидимся...\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Магический шар 8\n",
+        "## Описание проекта: магический шар 8 (шар судьбы) — шуточный способ предсказывать будущее. Программа должна просить пользователя задать некий вопрос, чтобы случайным образом на него ответить."
+      ],
+      "metadata": {
+        "id": "YdOrLtDabg8u"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Составляющие проекта:\n",
+        "\n",
+        "#### -Целые числа (тип int);\n",
+        "#### -Переменные;\n",
+        "#### -Ввод / вывод данных (функции input() и print());\n",
+        "#### -Условный оператор (if/elif/else);\n",
+        "#### -Цикл while;\n",
+        "#### -Бесконечный цикл;\n",
+        "#### -Операторы break, continue;\n",
+        "#### -Работа с модулем random для генерации случайных чисел"
+      ],
+      "metadata": {
+        "id": "9I3n3pE6b1Ux"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from random import *"
+      ],
+      "metadata": {
+        "id": "EbxR6HlNxOHn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# список ответов\n",
+        "answers = ['Бесспорно', 'Мне кажется - да', 'Пока неясно, попробуй снова', 'Даже не думай',\n",
+        "           'Предрешено', 'Вероятнее всего', 'Спроси позже', 'Мой ответ - нет',\n",
+        "           'Никаких сомнений', 'Хорошие перспективы', 'Лучше не рассказывать', 'По моим данным - нет',\n",
+        "           'Определённо да', 'Знаки говорят - да', 'Сейчас нельзя предсказать', 'Перспективы не очень хорошие',\n",
+        "           'Можешь быть уверен в этом', 'Да', 'Сконцентрируйся и спроси опять', 'Весьма сомнительно']"
+      ],
+      "metadata": {
+        "id": "P4jIwdg5cT45"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# начало программы\n",
+        "def start():\n",
+        "  '''приветствие пользователя'''\n",
+        "  print('Привет Мир, я магический шар, и я знаю ответ на любой твой вопрос.')\n",
+        "  name = input('Как тебя зовут? ')\n",
+        "  print('Привет', name)"
+      ],
+      "metadata": {
+        "id": "bxME2HtJdn2w"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# предсказание\n",
+        "def prediction():\n",
+        "  '''запрашивает у пользователя вопрос и выдает случайный ответ из списка'''\n",
+        "  while True:\n",
+        "    questions = input('Задай свой вопрос: ')\n",
+        "    if questions.isalpha() == True:\n",
+        "      return choice(answers)\n",
+        "    else:\n",
+        "      continue"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 87
+        },
+        "id": "TXosObzqilA7",
+        "outputId": "e103db57-d78a-45dc-98a0-5fc9fddfcba7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Задай свой вопрос: \n",
+            "Задай свой вопрос: \n",
+            "Задай свой вопрос: wewre\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'Сейчас нельзя предсказать'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# основная программа\n",
+        "start()\n",
+        "print(prediction())\n",
+        "next_q = 'Y'\n",
+        "while True:\n",
+        "  next_q = input('Хочешь спросить еще? (Y/N)')\n",
+        "  if next_q.upper() == 'N':\n",
+        "    print('Возвращайся если возникнут вопросы!')\n",
+        "    break\n",
+        "  elif next_q.upper() == 'Y':\n",
+        "    print(prediction())\n",
+        "    continue\n",
+        "  else:\n",
+        "    print('Я тебя не понял. Пожалуйста, введи ответ еще раз.')\n",
+        "    continue"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6CgHJRDhmmGP",
+        "outputId": "bc6f3cf2-4adf-48c1-c845-4cf166b5368b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Привет Мир, я магический шар, и я знаю ответ на любой твой вопрос.\n",
+            "Как тебя зовут? fdfv\n",
+            "Привет fdfv\n",
+            "Задай свой вопрос: dfdgf\n",
+            "Знаки говорят - да\n",
+            "Хочешь спросить еще? (Y/N)y\n",
+            "Задай свой вопрос: fgfgh\n",
+            "Вероятнее всего\n",
+            "Хочешь спросить еще? (Y/N)y\n",
+            "Задай свой вопрос: ddffdgh\n",
+            "Бесспорно\n",
+            "Хочешь спросить еще? (Y/N)ghgh\n",
+            "Я тебя не понял. Пожалуйста, введи ответ еще раз.\n",
+            "Хочешь спросить еще? (Y/N)\n",
+            "Я тебя не понял. Пожалуйста, введи ответ еще раз.\n",
+            "Хочешь спросить еще? (Y/N) \n",
+            "Я тебя не понял. Пожалуйста, введи ответ еще раз.\n",
+            "Хочешь спросить еще? (Y/N)n\n",
+            "Возвращайся если возникнут вопросы!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Генератор безопасных паролей\n",
+        "## Описание проекта: программа генерирует заданное количество паролей и включает в себя умную настройку на длину пароля, а также на то, какие символы требуется в него включить, а какие исключить."
+      ],
+      "metadata": {
+        "id": "n2X_Wx3-04UV"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Составляющие проекта:\n",
+        "\n",
+        "#### -Целые числа (тип int);\n",
+        "#### -Переменные;\n",
+        "#### -Ввод / вывод данных (функции input() и print());\n",
+        "#### -Условный оператор (if/elif/else);\n",
+        "#### -Цикл for;\n",
+        "#### -Написание пользовательских функций;\n",
+        "#### -Работа с модулем random для генерации случайных чисел."
+      ],
+      "metadata": {
+        "id": "si8cfP7t1MPW"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from random import *"
+      ],
+      "metadata": {
+        "id": "31ThJD6p1cfs"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "constants = {'digits': '0123456789',\n",
+        "             'lowercase_letters': 'abcdefghijklmnopqrstuvwxyz',\n",
+        "             'uppercase_letters': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',\n",
+        "             'punctuation': '!#$%&*+-=?@^_',\n",
+        "             'similar_symbols': 'il1Lo0O'\n",
+        "             }"
+      ],
+      "metadata": {
+        "id": "KfiXARr01x0o"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "chars = ''"
+      ],
+      "metadata": {
+        "id": "ZyNUFcPj2UaR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# защита от дурака\n",
+        "\n",
+        "def is_valid_int(number):\n",
+        "  '''проверяет введенное значение на соответствие числовому'''\n",
+        "  return number.isdigit() \n",
+        "\n",
+        "def is_valid_answer(text):\n",
+        "  '''проверяет ответ пользователя на соответствие да/нет'''\n",
+        "  return text.isalpha() and (text in ['Y', 'N'])"
+      ],
+      "metadata": {
+        "id": "W1BUKcRU5TqH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# генерация пароля\n",
+        "def generate_password(number, value):\n",
+        "  '''принимает строку и количество символов и генерирует пароль'''\n",
+        "  list_ = sample(number, int(value))\n",
+        "  return ''.join(list_)"
+      ],
+      "metadata": {
+        "id": "SxDLg94rFR55"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# необходимые вопросы пользователю\n",
+        "\n",
+        "print('Добро пожаловать в генератор паролей!')\n",
+        "\n",
+        "while True:  # проверка на валидность\n",
+        "  num = input('Количество паролей для генерации? ')\n",
+        "  if is_valid_int(num) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break\n",
+        "\n",
+        "while True:  # проверка на валидность\n",
+        "  lenght = input('Длина одного пароля? ')\n",
+        "  if is_valid_int(lenght) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break\n",
+        "\n",
+        "while True:  # проверка на валидность\n",
+        "  digit = input('Включать ли цифры 0123456789? (Y/N) ').upper()\n",
+        "  if is_valid_answer(digit) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break    \n",
+        "\n",
+        "while True:  # проверка на валидность\n",
+        "  upper = input('Включать ли прописные буквы ABCDEFGHIJKLMNOPQRSTUVWXYZ? (Y/N) ').upper()\n",
+        "  if is_valid_answer(upper) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break\n",
+        "\n",
+        "while True:  # проверка на валидность\n",
+        "  lower = input('Включать ли строчные буквы abcdefghijklmnopqrstuvwxyz? (Y/N) ').upper()\n",
+        "  if is_valid_answer(lower) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break\n",
+        "\n",
+        "while True:  # проверка на валидность  \n",
+        "  symbols = input('Включать ли символы !#$%&*+-=?@^_? (Y/N) ').upper()\n",
+        "  if is_valid_answer(symbols) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break\n",
+        "\n",
+        "while True:  # проверка на валидность    \n",
+        "  similar_symbols = input('Исключать ли неоднозначные символы il1Lo0O? (Y/N) ').upper()\n",
+        "  if is_valid_answer(lower) == False:\n",
+        "    continue\n",
+        "  else:\n",
+        "    break"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IXdPlBBV2spd",
+        "outputId": "d864dbfd-a694-40e1-d17b-73f10068df92"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Добро пожаловать в генератор паролей!\n",
+            "Количество паролей для генерации? io\n",
+            "Количество паролей для генерации? 3\n",
+            "Длина одного пароля? 5\n",
+            "Включать ли цифры 0123456789? (Y/N) y\n",
+            "Включать ли прописные буквы ABCDEFGHIJKLMNOPQRSTUVWXYZ? (Y/N) n\n",
+            "Включать ли строчные буквы abcdefghijklmnopqrstuvwxyz? (Y/N) y\n",
+            "Включать ли символы !#$%&*+-=?@^_? (Y/N) n\n",
+            "Исключать ли неоднозначные символы il1Lo0O? (Y/N) y\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# формируем строку символов для пароля\n",
+        "\n",
+        "if digit == 'Y':\n",
+        "  chars += constants['digits']\n",
+        "if lower == 'Y':\n",
+        "  chars += constants['lowercase_letters']\n",
+        "if upper == 'Y':\n",
+        "  chars += constants['uppercase_letters']\n",
+        "if symbols == 'Y':\n",
+        "  chars += constants['punctuation']\n",
+        "if similar_symbols == 'Y':\n",
+        "  for i in chars:    \n",
+        "    if i in constants['similar_symbols']:\n",
+        "      chars = chars.replace(i, '')"
+      ],
+      "metadata": {
+        "id": "Q6R0sTa98Kpl"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# основной цикл\n",
+        "for i in range(int(num)):\n",
+        "  print(generate_password(chars, lenght))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "q-AB3RIBG2V0",
+        "outputId": "48d3dbf7-6dff-4b63-d660-7278f1d8b56e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "$8gs2\n",
+            "ywgjm\n",
+            "Bq*ZM\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Шифр Цезаря\n",
+        "## Описание проекта: требуется написать программу, способную шифровать и дешифровать текст в соответствии с алгоритмом Цезаря. Она должна запрашивать у пользователя следующие данные:\n",
+        "\n",
+        "## -направление: шифрование или дешифрование;\n",
+        "## -язык алфавита: русский или английский;\n",
+        "## -шаг сдвига (со сдвигом вправо)."
+      ],
+      "metadata": {
+        "id": "y3vVf4ygN6jU"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Примечание 1. Считайте, что в русском языке 32 буквы (буква ё отсутствует).\n",
+        "\n",
+        "### Примечание 2. Неалфавитные символы — знаки препинания, пробелы, цифры — не меняются.\n",
+        "\n",
+        "### Примечание 3. Сохраните регистр символов. Например, текст: \"Умом Россию не понять\" при сдвиге на одну позицию вправо будет преобразован в: \"Фнпн Спттйя ож рпоауэ\".\n",
+        "\n",
+        "### Составляющие проекта:\n",
+        "\n",
+        "#### -Целые числа (тип int);\n",
+        "#### -Модульная арифметика;\n",
+        "#### -Переменные;\n",
+        "#### -Ввод / вывод данных (функции input() и print());\n",
+        "#### -Условный оператор (if/elif/else);\n",
+        "#### -Цикл for/while;\n",
+        "#### -Строковые методы."
+      ],
+      "metadata": {
+        "id": "IYix7iJ4OMDG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# константы\n",
+        "alphabet = {'en': {'alphas': 'abcdefghijklmnopqrstuvwxyz', 'count': 26},\n",
+        "           'ru': {'alphas': 'абвгдежзийклмнопрстуфхцчшщъыьэюя', 'count': 32}\n",
+        "           }"
+      ],
+      "metadata": {
+        "id": "0n3gwPm99iYI"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# проверка на валидность ответа пользователя\n",
+        "def is_valid_cry(txt):\n",
+        "  '''проверяет соответствие ответа пользователя диапазону значений'''\n",
+        "  return txt.isalpha() and txt.lower() in ['e', 'd']\n",
+        "\n",
+        "def is_valid_lang(txt):\n",
+        "  '''проверяет соответствие ответа пользователя диапазону значений'''\n",
+        "  return txt.isalpha() and txt.lower() in ['en', 'ru']"
+      ],
+      "metadata": {
+        "id": "iefZSaGqBrYa"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# функция шифрования\n",
+        "def encoding(text, lang, stp):\n",
+        "  '''шифрует текст в соответствии с заданным шагом'''\n",
+        "  new_text = ''\n",
+        "  for i in text:\n",
+        "    if i.lower() in alphabet[lang]['alphas']:\n",
+        "      k_index = alphabet[lang]['alphas'].find(i.lower()) + stp\n",
+        "      if k_index > alphabet[lang]['count'] - 1:\n",
+        "        k_index -= alphabet[lang]['count']\n",
+        "      if i.isupper() == True:\n",
+        "        new_text += alphabet[lang]['alphas'][k_index].upper()\n",
+        "      else:\n",
+        "        new_text += alphabet[lang]['alphas'][k_index]\n",
+        "    else:\n",
+        "      new_text += i\n",
+        "  return new_text\n",
+        "\n",
+        "# функция дешифрования\n",
+        "def decoding(text, lang, stp):\n",
+        "  '''расшифровывает текст в соответствии с заданным шагом'''\n",
+        "  new_text = ''\n",
+        "  for i in text:\n",
+        "    if i.lower() in alphabet[lang]['alphas']:\n",
+        "      k_index = alphabet[lang]['alphas'].find(i.lower()) - stp\n",
+        "      if k_index < 0:\n",
+        "        k_index = alphabet[lang]['count'] + k_index\n",
+        "      if i.isupper() == True:\n",
+        "        new_text += alphabet[lang]['alphas'][k_index].upper()\n",
+        "      else:\n",
+        "        new_text += alphabet[lang]['alphas'][k_index]\n",
+        "    else:\n",
+        "      new_text += i\n",
+        "  return new_text"
+      ],
+      "metadata": {
+        "id": "w7oqcP8ubIYc"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# начало программы\n",
+        "print('Ave, Cesar!')\n",
+        "\n",
+        "# задаем значния переменных\n",
+        "while True:\n",
+        "  crypt = input('Шифровать или дешифровать? e - encrypting, d - decrypting ')\n",
+        "  if is_valid_cry(crypt) == True:\n",
+        "    break\n",
+        "  else:\n",
+        "    print('Неправильный ввод. Повторите ')\n",
+        "    continue\n",
+        "\n",
+        "while True:\n",
+        "  language = input('Выберите язык: en - английский, ru - русский ')\n",
+        "  if is_valid_lang(language) == True:\n",
+        "    break\n",
+        "  else:\n",
+        "    print('Неправильный ввод. Повторите ')\n",
+        "    continue\n",
+        "\n",
+        "while True:\n",
+        "  step = input('Введите шаг сдвига ')\n",
+        "  if step.isdigit() == True:\n",
+        "    step = int(step)\n",
+        "    break\n",
+        "  else:\n",
+        "    print('Неправильный ввод. Повторите ')\n",
+        "    continue\n",
+        "\n",
+        "cod_text = input('Введите ваш текст ')\n",
+        "\n",
+        "# основной цикл\n",
+        "if crypt.lower() == 'e':\n",
+        "  print(encoding(cod_text, language, step))\n",
+        "elif crypt.lower() == 'd':\n",
+        "  print(decoding(cod_text, language, step))"
+      ],
+      "metadata": {
+        "id": "kp8SxBgAOg1C",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "dd825dcc-eed8-4a35-f583-31a5fdc949a8"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Ave, Cesar!\n",
+            "Шифровать или дешифровать? e - encrypting, d - decrypting d\n",
+            "Выберите язык: en - английский, ru - русский en\n",
+            "Введите шаг сдвига 22\n",
+            "Введите ваш текст Hawnj pk swhg xabkna ukq nqj.\n",
+            "Learn to walk before you run.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Угадайка слов\n",
+        "## Описание проекта: программа загадывает слово, а пользователь должен его угадать. Изначально все буквы слова неизвестны. Также рисуется виселица с петлей. Пользователь предлагает букву, которая может входить в это слово. Если такая буква есть в слове, то программа ставит букву столько раз, сколько она встречается в слове. Если такой буквы нет, к виселице добавляется круг в петле, изображающий голову. Пользователь продолжает отгадывать буквы до тех пор, пока не отгадает всё слово. За каждую неудачную попытку добавляется еще одна часть туловища висельника (обычно их 6: голова, туловище, 2 руки и 2 ноги."
+      ],
+      "metadata": {
+        "id": "dtxh1a-9OQQb"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Составляющие проекта:\n",
+        "\n",
+        "#### -Целые числа (тип int);\n",
+        "#### -Переменные;\n",
+        "#### -Ввод / вывод данных (функции input() и print());\n",
+        "#### -Условный оператор (if/elif/else);\n",
+        "#### -Цикл while;\n",
+        "#### -Бесконечный цикл;\n",
+        "#### -Операторы break, continue;\n",
+        "#### -Создание пользовательских функций;\n",
+        "#### -Списочные выражения;\n",
+        "#### -Работа с модулем random для генерации случайных чисел."
+      ],
+      "metadata": {
+        "id": "sfr7FWxcOYgO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from random import *\n",
+        "word_list = ['год', 'человек', 'время', 'дело', 'жизнь', 'день', 'рука', 'раз', 'работа', 'слово', 'место', 'лицо', 'друг', 'глаз', 'вопрос', 'дом', 'сторона', 'страна', 'мир', 'случай', 'голова', 'ребенок', 'сила', 'конец', 'вид', 'система', 'часть', 'город', 'отношение', 'женщина', 'деньги', 'земля', 'машина', 'вода', 'отец', 'проблема', 'час', 'право', 'нога', 'решение', 'дверь', 'образ', 'история', 'власть', 'закон', 'война', 'бог', 'голос', 'тысяча', 'книга', 'возможность', 'результат', 'ночь', 'стол', 'имя', 'область', 'статья', 'число', 'компания', 'народ', 'жена', 'группа', 'развитие', 'процесс', 'суд', 'условие', 'средство', 'начало', 'свет', 'пора', 'путь', 'душа', 'уровень', 'форма', 'связь', 'минута', 'улица', 'вечер', 'качество', 'мысль', 'дорога', 'мать', 'действие', 'месяц', 'государство', 'язык', 'любовь', 'взгляд', 'мама', 'век', 'школа', 'цель', 'общество', 'деятельность', 'организация', 'президент', 'комната', 'порядок', 'момент', 'театр', 'письмо', 'утро', 'помощь', 'ситуация', 'роль', 'рубль', 'смысл', 'состояние', 'квартира', 'орган', 'внимание', 'тело', 'труд', 'сын', 'мера', 'смерть', 'рынок', 'программа', 'задача', 'предприятие', 'окно', 'разговор', 'правительство', 'семья', 'производство', 'информация', 'положение', 'центр', 'ответ', 'муж', 'автор', 'стена', 'интерес', 'федерация', 'правило', 'управление', 'мужчина', 'идея', 'партия', 'совет', 'счет', 'сердце', 'движение', 'вещь', 'материал', 'неделя', 'чувство', 'глава', 'наука', 'ряд', 'газета', 'причина', 'плечо', 'цена', 'план', 'речь', 'точка', 'основа', 'товарищ', 'культура', 'данные', 'мнение', 'документ', 'институт', 'ход', 'проект', 'встреча', 'директор', 'срок', 'палец', 'опыт', 'служба', 'судьба', 'девушка', 'очередь', 'лес', 'состав', 'член', 'количество', 'событие', 'объект', 'зал', 'создание', 'значение', 'период', 'шаг', 'брат', 'искусство', 'структура', 'номер', 'пример', 'исследование', 'гражданин', 'игра', 'начальник', 'рост', 'тема', 'принцип', 'метод', 'тип', 'фильм', 'край', 'гость', 'воздух', 'характер', 'борьба', 'использование', 'размер', 'образование', 'мальчик', 'кровь', 'район', 'небо', 'армия', 'класс', 'представитель', 'участие', 'девочка', 'политика', 'герой', 'картина', 'доллар', 'спина', 'территория', 'пол', 'поле', 'изменение', 'направление', 'рисунок', 'течение', 'церковь', 'банк', 'сцена', 'население', 'большинство', 'музыка', 'правда', 'свобода', 'память', 'команда', 'союз', 'врач', 'договор', 'дерево', 'факт', 'хозяин', 'природа', 'угол', 'телефон', 'позиция', 'двор', 'писатель', 'самолет', 'объем', 'род', 'солнце', 'вера', 'берег', 'спектакль', 'фирма', 'способ', 'завод', 'цвет', 'журнал', 'руководитель', 'специалист', 'оценка', 'регион', 'песня', 'процент', 'родитель', 'море', 'требование', 'основание', 'половина', 'роман', 'круг', 'анализ', 'стихи', 'автомобиль', 'экономика', 'литература', 'бумага', 'поэт', 'степень', 'господин', 'надежда', 'предмет', 'вариант', 'министр', 'граница', 'дух', 'модель', 'операция', 'пара', 'сон', 'название', 'ум', 'повод', 'старик', 'миллион', 'успех', 'счастье', 'ребята', 'кабинет', 'магазин', 'пространство', 'выход']"
+      ],
+      "metadata": {
+        "id": "4biNFi3Xbq9h"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def get_word():\n",
+        "  return choice(word_list).upper()"
+      ],
+      "metadata": {
+        "id": "IrssZch-PYz8"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# функция получения текущего состояния\n",
+        "def display_hangman(tries):\n",
+        "    stages = [  # финальное состояние: голова, торс, обе руки, обе ноги\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |     \\\\|/\n",
+        "                   |      |\n",
+        "                   |     / \\\\\n",
+        "                   -\n",
+        "                ''',\n",
+        "                # голова, торс, обе руки, одна нога\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |     \\\\|/\n",
+        "                   |      |\n",
+        "                   |     / \n",
+        "                   -\n",
+        "                ''',\n",
+        "                # голова, торс, обе руки\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |     \\\\|/\n",
+        "                   |      |\n",
+        "                   |      \n",
+        "                   -\n",
+        "                ''',\n",
+        "                # голова, торс и одна рука\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |     \\\\|\n",
+        "                   |      |\n",
+        "                   |     \n",
+        "                   -\n",
+        "                ''',\n",
+        "                # голова и торс\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |      |\n",
+        "                   |      |\n",
+        "                   |     \n",
+        "                   -\n",
+        "                ''',\n",
+        "                # голова\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      O\n",
+        "                   |    \n",
+        "                   |      \n",
+        "                   |     \n",
+        "                   -\n",
+        "                ''',\n",
+        "                # начальное состояние\n",
+        "                '''\n",
+        "                   --------\n",
+        "                   |      |\n",
+        "                   |      \n",
+        "                   |    \n",
+        "                   |      \n",
+        "                   |     \n",
+        "                   -\n",
+        "                '''\n",
+        "    ]\n",
+        "    return stages[tries]"
+      ],
+      "metadata": {
+        "id": "AZf3S3VNQZp4"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def play(word):\n",
+        "  # тело функции\n",
+        "  word_completion = ['*'] * len(word)  # строка, содержащая символы _ на каждую букву задуманного слова\n",
+        "  guessed_letters = []               # список уже названных букв\n",
+        "  guessed_words = []                 # список уже названных слов\n",
+        "  tries = 6                          # количество попыток\n",
+        "  print('Давайте играть в угадайку слов!')\n",
+        "  print(display_hangman(tries))\n",
+        "  print(*word_completion)\n",
+        "\n",
+        "  while tries > 0:\n",
+        "    w_or_l = input('Слово или буква? С-слово, Б-буква ')\n",
+        "\n",
+        "    if w_or_l.isalpha() and w_or_l.upper() == 'С':  # блок угадывания всего слова\n",
+        "      letter = input('Введите слово ').upper()\n",
+        "      if letter in guessed_words:\n",
+        "        print('Уже было. Попробуйте еще раз', *guessed_words, sep=' ')\n",
+        "        continue\n",
+        "      else:\n",
+        "        if letter == word:\n",
+        "          print('Поздравляем! Вы угадали слово!')\n",
+        "          break\n",
+        "        else:\n",
+        "          guessed_words.append(letter)\n",
+        "          tries -= 1\n",
+        "          print('Неверно! Осталось попыток: ', tries)\n",
+        "          print(display_hangman(tries))\n",
+        "          if tries == 0:\n",
+        "            print('Игра окончена. Вы не угадали слово ', word)\n",
+        "\n",
+        "    elif w_or_l.isalpha() and w_or_l.upper() == 'Б':  # блок угадывания букв\n",
+        "      print('Использованные буквы ', *guessed_letters, sep=' ')\n",
+        "      letter = input('Введите букву ').upper()\n",
+        "      if letter in guessed_letters:\n",
+        "        print('Уже было. Попробуйте еще раз', *guessed_letters, sep=' ')\n",
+        "        continue\n",
+        "      else:\n",
+        "        guessed_letters.append(letter)\n",
+        "        if letter in word:\n",
+        "          print('Верно!')\n",
+        "          for i in range(len(word)):\n",
+        "            if letter == word[i]:\n",
+        "              word_completion.insert(i, letter)\n",
+        "              del word_completion[i + 1]\n",
+        "          if word == ''.join(word_completion):\n",
+        "            print('Поздравляем! Вы угадали слово!', word)\n",
+        "            break\n",
+        "          print(*word_completion)\n",
+        "        \n",
+        "        else:\n",
+        "          tries -= 1\n",
+        "          print('Неверно! Осталось попыток: ', tries)\n",
+        "          print(display_hangman(tries))\n",
+        "          if tries == 0:\n",
+        "            print('Игра окончена. Вы не угадали слово ', word)\n",
+        "\n",
+        "    else:\n",
+        "      print('Вы ввели неверное значение. Повторите ввод')\n",
+        "      continue"
+      ],
+      "metadata": {
+        "id": "lPKrhquLQgIW"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "word = get_word()\n",
+        "play(word)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "QMP09NpsSZt6",
+        "outputId": "4b2e276c-e6ed-4712-a7be-d0a1d46a5e43"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Давайте играть в угадайку слов!\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      \n",
+            "                   |    \n",
+            "                   |      \n",
+            "                   |     \n",
+            "                   -\n",
+            "                \n",
+            "* * * * *\n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы \n",
+            "Введите букву е\n",
+            "Неверно! Осталось попыток:  5\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |    \n",
+            "                   |      \n",
+            "                   |     \n",
+            "                   -\n",
+            "                \n",
+            "Слово или буква? С-слово, Б-буква а\n",
+            "Вы ввели неверное значение. Повторите ввод\n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е\n",
+            "Введите букву а\n",
+            "Неверно! Осталось попыток:  4\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |      |\n",
+            "                   |      |\n",
+            "                   |     \n",
+            "                   -\n",
+            "                \n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А\n",
+            "Введите букву о\n",
+            "Верно!\n",
+            "* О * О *\n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А О\n",
+            "Введите букву п\n",
+            "Неверно! Осталось попыток:  3\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |     \\|\n",
+            "                   |      |\n",
+            "                   |     \n",
+            "                   -\n",
+            "                \n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А О П\n",
+            "Введите букву л\n",
+            "Неверно! Осталось попыток:  2\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |     \\|/\n",
+            "                   |      |\n",
+            "                   |      \n",
+            "                   -\n",
+            "                \n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А О П Л\n",
+            "Введите букву р\n",
+            "Верно!\n",
+            "* О Р О *\n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А О П Л Р\n",
+            "Введите букву т\n",
+            "Неверно! Осталось попыток:  1\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |     \\|/\n",
+            "                   |      |\n",
+            "                   |     / \n",
+            "                   -\n",
+            "                \n",
+            "Слово или буква? С-слово, Б-буква б\n",
+            "Использованные буквы  Е А О П Л Р Т\n",
+            "Введите букву с\n",
+            "Неверно! Осталось попыток:  0\n",
+            "\n",
+            "                   --------\n",
+            "                   |      |\n",
+            "                   |      O\n",
+            "                   |     \\|/\n",
+            "                   |      |\n",
+            "                   |     / \\\n",
+            "                   -\n",
+            "                \n",
+            "Игра окончена. Вы не угадали слово  ГОРОД\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
